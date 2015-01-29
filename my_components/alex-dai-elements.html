@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Alex-Dai-Elements</title>
+<link href="" rel="stylesheet">
+<script type="text/javascript" src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+<script type="text/javascript" src="../bower_components/webcomponentsjs/CustomElements.min.js"></script>
+<script type="text/javascript">
+
+    /* Custom Element Examples Added By Alex.Dai @20150129 */
+
+    // 1.基本-建立Element
+	var XFooPrototype = Object.create(HTMLElement.prototype);
+
+    // 新增屬性
+    Object.defineProperty(XFooPrototype, "bar", {value: 5,  writable: false });
+
+    // 新增方法
+    XFooPrototype.foo = function() {
+        console.log('foo() called');
+        debugger;;
+    };
+
+    // 建立時執行
+    XFooPrototype.createdCallback = function() {
+       this.textContent = "I'm an x-foo!";
+
+       var xfName = this.getAttribute('data-name');
+       console.log(xfName);
+
+       XFooPrototype.bar = 10;
+       console.log(XFooPrototype.bar);
+    };
+
+    // 註冊新的Element
+    var XFoo = document.registerElement('x-foo', {
+        prototype: XFooPrototype
+    });
+
+
+    // 2.繼承 prototype button
+    var XFooButtonPrototype = Object.create(HTMLButtonElement.prototype);
+    XFooButtonPrototype.createdCallback = function() {
+        this.id = "myBtn";
+        this.style.color = "red";
+        this.textContent = "I'm an x-foo button!";
+        // Add Click Event
+        this.addEventListener("click", function(){ alert('Hi'); });
+
+        console.log('XFooButton 已建立');
+    };
+
+    XFooButtonPrototype.attachedCallback = function() {
+        console.log('XFooButton 已插入');
+    };
+
+    XFooButtonPrototype.detachedCallback = function() {
+        console.log('XFooButton 已移除');
+    };
+
+    XFooButtonPrototype.attributeChangedCallback = function() {
+
+    };
+
+    var XFooButton = document.registerElement('x-foo-button', {
+        prototype: XFooButtonPrototype,
+        extends: 'button' // or 繼承自訂元素 ex: x-foo
+    });
+</script>
+</head>
+<body>
+
+    <!-- index.html 並不會顯示 Element 但會執行 Event -->
+    <x-foo data-name="JS"></x-foo>
+    <button is="x-foo-button"></button>
+
+</body>
+</html>

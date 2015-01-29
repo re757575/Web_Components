@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Web Components Examples</title>
+<script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+<script type="text/javascript" src="bower_components/webcomponentsjs/HTMLImports.min.js"></script>
+<script type="text/javascript" src="bower_components/webcomponentsjs/CustomElements.min.js"></script>
+<!--
+<script type="text/javascript" src="bower_components/webcomponentsjs/ShadowDOM.min.js"></script>
+-->
+<link rel="import" href="my_components/alex-dai-elements.html" >
+</head>
+<body>
+
+    <h2>Custom Element Examples</h2>
+    <!-- <x-foo></x-foo> -->
+
+    <script type="text/javascript">
+        // 使用javascript建立 <x-foo></x-foo>
+        document.body.appendChild(new XFoo());
+        // new XFoo().foo();
+    </script>
+
+    <button is="x-foo-button"></button>
+
+</body>
+</html>
