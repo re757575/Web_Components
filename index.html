@@ -11,18 +11,33 @@
 -->
 <link rel="import" href="my_components/alex-dai-elements.html" >
 </head>
+<script>
+window.addEventListener('WebComponentsReady', function(e) {
+  // all imports loaded
+});
+
+
+
+</script>
 <body>
 
     <h2>Custom Element Examples</h2>
     <!-- <x-foo></x-foo> -->
+    <!--<button is="x-foo-button"></button> -->
 
     <script type="text/javascript">
-        // 使用javascript建立 <x-foo></x-foo>
-        document.body.appendChild(new XFoo());
         // new XFoo().foo();
-    </script>
 
-    <button is="x-foo-button"></button>
+        // 使用javascript建立Elements
+        document.body.appendChild(new XFoo());
+
+        // var parent = document.currentScript.ownerDocument;
+
+        var link = document.querySelector('link[rel=import]');
+        var html = link.import;
+        var dom = html.body.querySelector('button').cloneNode(true)
+        document.body.appendChild(dom);
+    </script>
 
 </body>
 </html>

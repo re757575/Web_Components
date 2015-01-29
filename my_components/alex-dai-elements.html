@@ -42,6 +42,7 @@
     // 2.繼承 prototype button
     var XFooButtonPrototype = Object.create(HTMLButtonElement.prototype);
     XFooButtonPrototype.createdCallback = function() {
+        // 將會覆蓋先前的(index.html)
         this.id = "myBtn";
         this.style.color = "red";
         this.textContent = "I'm an x-foo button!";
@@ -67,6 +68,8 @@
         prototype: XFooButtonPrototype,
         extends: 'button' // or 繼承自訂元素 ex: x-foo
     });
+
+
 </script>
 </head>
 <body>
