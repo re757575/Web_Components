@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Web Components Examples</title>
 <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
 <script type="text/javascript" src="bower_components/webcomponentsjs/HTMLImports.min.js"></script>
@@ -11,20 +13,18 @@
 -->
 <link rel="import" href="my_components/alex-dai-elements.html" >
 </head>
+
 <script>
-window.addEventListener('WebComponentsReady', function(e) {
-  // all imports loaded
-});
-
-
-
+    window.addEventListener('WebComponentsReady', function(e) {
+    // all imports loaded
+    });
 </script>
+
 <body>
 
     <h2>Custom Element Examples</h2>
     <!-- <x-foo></x-foo> -->
     <!--<button is="x-foo-button"></button> -->
-
     <script type="text/javascript">
         // new XFoo().foo();
 
@@ -37,6 +37,28 @@ window.addEventListener('WebComponentsReady', function(e) {
         var html = link.import;
         var dom = html.body.querySelector('button').cloneNode(true)
         document.body.appendChild(dom);
+    </script>
+
+    <h2>Template Examples</h2>
+    <div id="container"></div>
+
+    <script type="text/javascript">
+        var link = document.querySelector('link[rel="import"]');
+        var template = link.import.querySelector('#profileTemplate');
+
+        /*
+            錯誤
+            template.querySelector('.profile_name').innerText = 'Alex.Dai';
+        */
+
+        var content = template.content.cloneNode(true); // 重要
+
+        var _img = 'https://lh5.googleusercontent.com/-21DeV_J5Akk/AAAAAAAAAAI/AAAAAAAAAAA/DtIMvYmNqag/s48-c/photo.jpg';
+        content.querySelector('.profile_img').setAttribute('src', _img);
+        content.querySelector('.profile_name').innerText = 'Alex.Dai';
+        content.querySelector('.profile_age').innerText = '25';
+
+        document.querySelector('#container').appendChild(content);
     </script>
 
 </body>
