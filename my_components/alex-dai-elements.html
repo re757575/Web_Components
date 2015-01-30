@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <title>Alex-Dai-Elements</title>
-<link href="" rel="stylesheet">
 <script type="text/javascript" src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
 <script type="text/javascript" src="../bower_components/webcomponentsjs/CustomElements.min.js"></script>
 <script type="text/javascript">
@@ -27,10 +26,10 @@
        this.textContent = "I'm an x-foo!";
 
        var xfName = this.getAttribute('data-name');
-       console.log(xfName);
+       //console.log(xfName);
 
        XFooPrototype.bar = 10;
-       console.log(XFooPrototype.bar);
+       //console.log(XFooPrototype.bar);
     };
 
     // 註冊新的Element
@@ -77,6 +76,15 @@
     <!-- index.html 並不會顯示 Element 但會執行 Event -->
     <x-foo data-name="JS"></x-foo>
     <button is="x-foo-button"></button>
+
+    <!-- 使用樣板 -->
+    <template id="profileTemplate">
+      <div class="profile">
+        <img src="" class="profile_img img-thumbnail">
+        <div class="profile_name"></div>
+        <div class="profile_age"></div>
+      </div>
+    </template>
 
 </body>
 </html>
