@@ -4,8 +4,11 @@
 <meta charset="utf-8">
 <title>Alex-Dai-Elements</title>
 <link href="" rel="stylesheet">
-<script type="text/javascript" src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+<!--
+<script type="text/javascript" src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 <script type="text/javascript" src="../bower_components/webcomponentsjs/CustomElements.min.js"></script>
+<script type="text/javascript" src="../bower_components/webcomponentsjs/ShadowDOM.min.js"></script>
+-->
 <script type="text/javascript">
 
     /* Custom Element Examples Added By Alex.Dai @20150129 */
@@ -70,13 +73,52 @@
     });
 
 
+    // 3.Shadow DOM
+    var XFooProtoPrototype = Object.create(HTMLElement.prototype);
+    XFooProtoPrototype.createdCallback = function() {
+
+        var shadow = this.createShadowRoot();
+
+        var img = document.createElement('img');
+        img.alt = this.getAttribute('data-name');
+        img.src = this.getAttribute('data-img');
+        img.url = this.getAttribute('data-url');
+        img.width = '150';
+        img.height = '150';
+        img.className = 'foo-img';
+
+        img.addEventListener('click', function(e) {
+           alert('clicked');
+        });
+
+        var aTag = document.createElement('a');
+        aTag.target = "_blank";
+        aTag.href = img.url;
+        aTag.appendChild(img);
+
+        shadow.appendChild(aTag);
+    };
+
+    var XFooProto = document.registerElement('x-fooProto', {
+        prototype: XFooProtoPrototype
+    });
+
 </script>
 </head>
 <body>
 
     <!-- index.html 並不會顯示 Element 但會執行 Event -->
     <x-foo data-name="JS"></x-foo>
+    <br/><br/>
+
     <button is="x-foo-button"></button>
+    <br/><br/>
+
+    <x-fooProto data-name="Alex.Dai"
+                data-img="https://avatars1.githubusercontent.com/u/1502976?v=3&s=460"
+                data-url="https://github.com/re757575">
+    </x-fooProto>
+    <br/><br/>
 
 </body>
 </html>

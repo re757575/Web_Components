@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Web Components Examples</title>
+
 <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
 <script type="text/javascript" src="bower_components/webcomponentsjs/HTMLImports.min.js"></script>
 <script type="text/javascript" src="bower_components/webcomponentsjs/CustomElements.min.js"></script>
@@ -12,12 +13,9 @@
 <link rel="import" href="my_components/alex-dai-elements.html" >
 </head>
 <script>
-window.addEventListener('WebComponentsReady', function(e) {
-  // all imports loaded
-});
-
-
-
+    window.addEventListener('WebComponentsReady', function(e) {
+      // all imports loaded
+    });
 </script>
 <body>
 
@@ -39,5 +37,11 @@ window.addEventListener('WebComponentsReady', function(e) {
         document.body.appendChild(dom);
     </script>
 
+    <h2>Shadow DOM Examples</h2>
+
+    <x-fooProto data-name="Alex.Dai"
+                data-img="https://avatars1.githubusercontent.com/u/1502976?v=3&s=460"
+                data-url="https://github.com/re757575">
+    </x-fooProto>
 </body>
 </html>
