@@ -12,34 +12,10 @@
 <!--
 <script type="text/javascript" src="bower_components/webcomponentsjs/ShadowDOM.min.js"></script>
 -->
-<script>
-
-    function supportsTemplate() {
-        var result = 'content' in document.createElement('template') === true ? '支持 Template' : '不支持 Template';
-        console.log(result);
-    }
-
-    function supportsImports() {
-        var result = 'import' in document.createElement('link') === true ? '支持 Imports' : '不支持 Imports';
-        console.log(result);
-    }
-
-    function supportsCustomElements() {
-        var result = 'registerElement' in document === true ? '支持 CustomElements' : '不支持 CustomElements';
-        console.log(result);
-    }
-
-    (function checkSupportsComponents() {
-        supportsTemplate();
-        supportsImports();
-        supportsCustomElements();
-    }());
-
-</script>
-
+<!--
 <link rel="import" href="my_components/alex-dai-elements.html" >
 <link rel="import" href="my_components/business-card/business-card.html" >
-
+-->
 </head>
 
 <script>
@@ -60,25 +36,69 @@
     <h3>Custom Element Examples</h3>
     <!-- <x-foo></x-foo> -->
     <!--<button is="x-foo-button"></button> -->
-    <script type="text/javascript">
-        // new XFoo().foo();
+    <div id="container-1"></div>
 
+    <h3>Template Examples</h3>
+    <div id="container-2"></div>
+
+
+    <h3>Shadow DOM Examples</h3>
+
+    <x-fooProto data-name="Alex.Dai"
+                data-img="https://avatars1.githubusercontent.com/u/1502976?v=3&s=460"
+                data-url="https://github.com/re757575">
+    </x-fooProto>
+
+    <h3>Web Components Example - busines-card</h3>
+
+    <busines-card data-default="true"></busines-card>
+
+    <busines-card data-name="Alex.Dai"
+                  data-mobile="09xx-xxxxxx"
+                  data-tel="04-xxxx-xxxx"
+                  data-fax="04-xxxx-xxxx"
+                  data-email="alex.dai@xxxx.com"
+                  data-address="台中市xxx區xxx路ooo號x樓之o"
+                  data-companyName_zh="地球防衛隊"
+                  data-companyName_en="Earth Defense Force">
+    </busines-card>
+
+<script>
+(function () {
+    var init = {
+        components: ['my_components/alex-dai-elements.html',
+                     'my_components/business-card/business-card.html'],
+        goImport: function(callback) {
+            for(var i  in this.components) {
+                var link = document.createElement('link');
+                    link.setAttribute("rel", "import")
+                    link.setAttribute("href", this.components[i]);
+                    // 動態產生
+                    if (i == 0) {
+                        link.onload = function() {
+                            createProfile();
+                            createXFoo();
+                        };
+                    }
+                    document.body.appendChild(link);
+            }
+        }
+    };
+
+    function createXFoo() {
         // 使用javascript建立Elements
-        document.body.appendChild(new XFoo());
+        document.querySelector('#container-1').appendChild(new XFoo());
+    };
 
-        // var parent = document.currentScript.ownerDocument;
-
+    function createXFooBtn() {
+        // 使用javascript建立Elements
         var link = document.querySelector('link[rel=import]');
         var html = link.import;
         var dom = html.body.querySelector('button').cloneNode(true)
-        document.body.appendChild(dom);
-    </script>
+        document.querySelector('#container-1').appendChild(dom);
+    };
 
-
-    <h3>Template Examples</h3>
-    <div id="container"></div>
-
-    <script type="text/javascript">
+    function createProfile() {
         var link = document.querySelector('link[rel="import"]');
         var template = link.import.querySelector('#profileTemplate');
 
@@ -94,29 +114,35 @@
         content.querySelector('.profile_name').innerText = 'Alex.Dai';
         content.querySelector('.profile_age').innerText = '25';
 
-        document.querySelector('#container').appendChild(content);
-    </script>
+        document.querySelector('#container-2').appendChild(content);
+    };
 
-    <h3>Shadow DOM Examples</h3>
+    function supportsTemplate() {
+        var result = 'content' in document.createElement('template');
+            console.log(result === true ? '支持 Template' : '不支持 Template');
+            return result;
+    }
 
-    <x-fooProto data-name="Alex.Dai"
-                data-img="https://avatars1.githubusercontent.com/u/1502976?v=3&s=460"
-                data-url="https://github.com/re757575">
-    </x-fooProto>
+    function supportsImports() {
+        var result = 'import' in document.createElement('link');
+        console.log(result === true ? '支持 Imports' : '不支持 Imports');
+        return result;
+    }
 
+    function supportsCustomElements() {
+        var result = 'registerElement' in document;
+        console.log(result === true ? '支持 CustomElements' : '不支持 CustomElements');
+        return result;
+    }
 
-    <h3>Web Components Example - busines-card</h3>
-
-    <busines-card data-default="true"></busines-card>
-
-    <busines-card data-name="Alex.Dai"
-                  data-mobile="09xx-xxxxxx"
-                  data-tel="04-xxxx-xxxx"
-                  data-fax="04-xxxx-xxxx"
-                  data-email="alex.dai@xxxx.com"
-                  data-address="台中市xxx區xxx路ooo號x樓之o"
-                  data-companyName_zh="地球防衛隊"
-                  data-companyName_en="Earth Defense Force">
-    </busines-card>
+    (function checkSupportsComponents() {
+        if (supportsTemplate() && supportsImports() && supportsCustomElements()) {
+            init.goImport();
+        } else {
+            alert('抱歉，您的瀏覽器沒有完全支援 Web Components');
+        }
+    }());
+})();
+</script>
 </body>
 </html>
