@@ -12,7 +12,33 @@
 <!--
 <script type="text/javascript" src="bower_components/webcomponentsjs/ShadowDOM.min.js"></script>
 -->
+<script>
+
+    function supportsTemplate() {
+        var result = 'content' in document.createElement('template') === true ? '支持 Template' : '不支持 Template';
+        console.log(result);
+    }
+
+    function supportsImports() {
+        var result = 'import' in document.createElement('link') === true ? '支持 Imports' : '不支持 Imports';
+        console.log(result);
+    }
+
+    function supportsCustomElements() {
+        var result = 'registerElement' in document === true ? '支持 CustomElements' : '不支持 CustomElements';
+        console.log(result);
+    }
+
+    (function checkSupportsComponents() {
+        supportsTemplate();
+        supportsImports();
+        supportsCustomElements();
+    }());
+
+</script>
+
 <link rel="import" href="my_components/alex-dai-elements.html" >
+
 </head>
 
 <script>
