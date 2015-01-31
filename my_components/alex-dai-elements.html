@@ -5,7 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Alex-Dai-Elements</title>
 
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="../pub/css/bootstrap/bootstrap-3.3.2.min.css" rel="stylesheet">
+<!-- Material Design for Bootstrap -->
+<link href="../pub/css/bootstrap-material-design/0.2.2/material-wfont.min.css" rel="stylesheet">
+<link href="../pub/css/bootstrap-material-design/0.2.2/ripples.min.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -56,7 +59,8 @@
     XFooButtonPrototype.createdCallback = function() {
         // 將會覆蓋先前的(index.html)
         this.id = "myBtn";
-        this.style.color = "red";
+        //this.style.color = "red";
+        this.className = "btn btn-primary";
         this.textContent = "I'm an x-foo button!";
         // Add Click Event
         this.addEventListener("click", function(){ alert('Hi'); });
@@ -142,7 +146,7 @@
 
     <br/><br/>
 
-    <button is="x-foo-button" class="btn btn-default"></button>
+    <button is="x-foo-button"></button>
 
     <!-- 使用樣板 -->
     <template id="profileTemplate">
@@ -155,7 +159,7 @@
     <br/><br/>
 
     <x-fooProto data-name="Alex.Dai"
-                data-img="https://avatars1.githubusercontent.com/u/1502976?v=3&s=460"
+                data-img="../pub/img/re757575.jpg"
                 data-url="https://github.com/re757575">
     </x-fooProto>
     <br/><br/>
