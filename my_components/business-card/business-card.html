@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>business-card</title>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!--
+<script type="text/javascript" src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+<script type="text/javascript" src="../bower_components/webcomponentsjs/CustomElements.min.js"></script>
+<script type="text/javascript" src="../bower_components/webcomponentsjs/ShadowDOM.min.js"></script>
+-->
+
+</head>
+<body>
+
+    <!-- 自製名片樣板 -->
+    <template id="business-card-template">
+
+    <style>
+        @import 'my_components/business-card/css/bootstrap/bootstrap-3.3.2.min.css';
+        @import 'my_components/business-card/css/bootstrap-material-design/0.2.2/material-wfont.min.css';
+        @import 'my_components/business-card/css/bootstrap-material-design/0.2.2/ripples.min.css';
+    </style>
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p style="font-family:微軟正黑體;color:rgb(51,51,51)">
+                        <span id ="name">王老王</span> / <span id="mobile">09xx-xxxxxx</span>
+                        <br>Tel : <span id="tel">04-12345xxx#123</span>
+                        <br>Fax : <span id="fax">04-12345xxx</span>
+                        <br>e-mail :<span>&nbsp;<a id="email" href="mailto:abc@myemail.com" target="_blank">abc@myemail.com</a></span>
+                        <br>Add : <span id="address">台中市XX區XX路XXX號X樓之X</span>
+                    </p>
+                    <p style="font-family:微軟正黑體;color:rgb(51,51,51)">
+                        <strong style="color:rgb(0,0,0);font-size:15px">
+                            <span id="companyName_zh">XXXXXXXXX有限公司</span><br>
+                            <span id="companyName_en">XXXXXXXX Intergration Co,. Ltd.</span>
+                        </strong>
+                        <br style="color:rgb(0,0,0)">
+                        <font color="#f29700">■</font><span style="color:rgb(0,0,0)">&nbsp;系統整合&nbsp;</span>
+                        <font color="#0075c2">■</font><span style="color:rgb(0,0,0)">&nbsp;電子商務&nbsp;</span>
+                        <font color="#67af29">■</font><span style="color:rgb(0,0,0)">&nbsp;網站營運&nbsp;</span>
+                        <font color="#e70012">■</font><span style="color:rgb(0,0,0)">&nbsp;客製化服務</span>
+                        <br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script type="text/javascript">
+        var doc = document.currentScript.ownerDocument;
+        var tpl = doc.getElementById('business-card-template');
+        var businessCardPrototype = Object.create(HTMLElement.prototype);
+
+        businessCardPrototype.createdCallback = function () {
+
+            var _default = this.getAttribute('data-default');
+
+            var name = this.getAttribute('data-name');
+            var mobile = this.getAttribute('data-mobile');
+            var tel = this.getAttribute('data-tel');
+            var fax = this.getAttribute('data-fax');
+            var email = this.getAttribute('data-email');
+            var address = this.getAttribute('data-address');
+            var companyName_zh = this.getAttribute('data-companyName_zh');
+            var companyName_en = this.getAttribute('data-companyName_en');
+
+            // 建立 ShadowRoot
+            var shadow = this.createShadowRoot();
+
+            // 取得樣板並設定值
+            var content = tpl.content.cloneNode(true);
+
+            // 非預設才設定值
+            if (_default ===  null || _default === 'false') {
+                content.querySelector('#name').innerText = name;
+                content.querySelector('#mobile').innerText = mobile;
+                content.querySelector('#tel').innerText = tel;
+                content.querySelector('#fax').innerText = fax;
+                content.querySelector('#email').innerText = email;
+                content.querySelector('#email').setAttribute('href','mailto:' + email);
+                content.querySelector('#address').innerText = address;
+                content.querySelector('#companyName_zh').innerText = companyName_zh;
+                content.querySelector('#companyName_en').innerText = companyName_en;
+            }
+
+            // 將 樣板 加到 ShadowRoot 底下
+            shadow.appendChild(content);
+        };
+
+        document.registerElement('busines-card', {prototype: businessCardPrototype});
+    </script>
+    <!--
+        <busines-card data-name="Alex.Dai"
+                      data-mobile="09xx-xxxxxx"
+                      data-tel="04-xxxx-xxxx"
+                      data-fax="04-xxxx-xxxx"
+                      data-email="alex.dai@xxxx.com"
+                      data-address="台中市xxx區xxx路ooo號x樓之o"
+                      data-companyName_zh="地球防衛隊"
+                      data-companyName_en="Earth Defense Force">
+        </busines-card>
+    -->
+</body>
+</html>
