@@ -65,22 +65,18 @@
 
 <script>
 (function () {
+
     var init = {
         components: ['my_components/alex-dai-elements.html',
                      'my_components/business-card/business-card.html'],
         goImport: function(callback) {
-            for(var i  in this.components) {
+            for (var i  in this.components) {
                 var link = document.createElement('link');
-                    link.setAttribute("rel", "import")
+                    link.setAttribute("rel", "import");
                     link.setAttribute("href", this.components[i]);
                     // 動態產生
-                    if (i == 0) {
-                        link.onload = function() {
-                            createProfile();
-                            createXFoo();
-                        };
-                    }
-                    document.body.appendChild(link);
+                    link.onload = createComponents(this);
+                document.body.appendChild(link);
             }
         }
     };
@@ -88,15 +84,15 @@
     function createXFoo() {
         // 使用javascript建立Elements
         document.querySelector('#container-1').appendChild(new XFoo());
-    };
+    }
 
     function createXFooBtn() {
         // 使用javascript建立Elements
         var link = document.querySelector('link[rel=import]');
         var html = link.import;
-        var dom = html.body.querySelector('button').cloneNode(true)
+        var dom = html.body.querySelector('button').cloneNode(true);
         document.querySelector('#container-1').appendChild(dom);
-    };
+    }
 
     function createProfile() {
         var link = document.querySelector('link[rel="import"]');
@@ -115,7 +111,19 @@
         content.querySelector('.profile_age').innerText = '25';
 
         document.querySelector('#container-2').appendChild(content);
-    };
+    }
+
+    function createComponents() {
+        return function () {
+            if ('my_components/alex-dai-elements.html' === this.getAttribute('href')) {
+                createProfile();
+                createXFoo();
+                createXFooBtn();
+                console.log('alex-dai-elements 已建立');
+                //debugger;;
+            }
+        };
+    }
 
     function supportsTemplate() {
         var result = 'content' in document.createElement('template');
