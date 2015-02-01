@@ -15,6 +15,7 @@
 <!--
 <link rel="import" href="my_components/alex-dai-elements.html" >
 <link rel="import" href="my_components/business-card/business-card.html" >
+<link rel="import" href="my_components/my-navbar/my-navbar.html" >
 -->
 </head>
 
@@ -30,45 +31,96 @@
     }
 </style>
 
-<body class="container">
-    <h1>Web Components</h1>
+<body>
 
-    <h3>Custom Element Examples</h3>
-    <!-- <x-foo></x-foo> -->
-    <!--<button is="x-foo-button"></button> -->
-    <div id="container-1"></div>
+    <my-navbar></my-navbar>
+    <!--
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0)">Brand</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="javascript:void(0)">Active</a></li>
+                <li><a href="javascript:void(0)">Link</a></li>
+                <li class="dropdown">
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">Action</a></li>
+                        <li><a href="javascript:void(0)">Another action</a></li>
+                        <li><a href="javascript:void(0)">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Dropdown header</li>
+                        <li><a href="javascript:void(0)">Separated link</a></li>
+                        <li><a href="javascript:void(0)">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <input type="text" class="form-control col-lg-8" placeholder="Search">
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:void(0)">Link</a></li>
+                <li class="dropdown">
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">Action</a></li>
+                        <li><a href="javascript:void(0)">Another action</a></li>
+                        <li><a href="javascript:void(0)">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0)">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    -->
+    <div class="container">
+        <h1>Web Components</h1>
 
-    <h3>Template Examples</h3>
-    <div id="container-2"></div>
+        <h3>Custom Element Examples</h3>
+        <!-- <x-foo></x-foo> -->
+        <!--<button is="x-foo-button"></button> -->
+        <div id="container-1"></div>
+
+        <h3>Template Examples</h3>
+        <div id="container-2"></div>
 
 
-    <h3>Shadow DOM Examples</h3>
+        <h3>Shadow DOM Examples</h3>
 
-    <x-fooProto data-name="Alex.Dai"
-                data-img="pub/img/re757575.jpg"
-                data-url="https://github.com/re757575">
-    </x-fooProto>
+        <x-fooProto data-name="Alex.Dai"
+                    data-img="pub/img/re757575.jpg"
+                    data-url="https://github.com/re757575">
+        </x-fooProto>
 
-    <h3>Web Components Example - busines-card</h3>
+        <h3>Web Components Example - busines-card</h3>
 
-    <busines-card data-default="true"></busines-card>
+        <busines-card data-default="true"></busines-card>
 
-    <busines-card data-name="Alex.Dai"
-                  data-mobile="09xx-xxxxxx"
-                  data-tel="04-xxxx-xxxx"
-                  data-fax="04-xxxx-xxxx"
-                  data-email="alex.dai@xxxx.com"
-                  data-address="台中市xxx區xxx路ooo號x樓之o"
-                  data-companyName_zh="地球防衛隊"
-                  data-companyName_en="Earth Defense Force">
-    </busines-card>
-
+        <busines-card data-name="Alex.Dai"
+                      data-mobile="09xx-xxxxxx"
+                      data-tel="04-xxxx-xxxx"
+                      data-fax="04-xxxx-xxxx"
+                      data-email="alex.dai@xxxx.com"
+                      data-address="台中市xxx區xxx路ooo號x樓之o"
+                      data-companyName_zh="地球防衛隊"
+                      data-companyName_en="Earth Defense Force">
+        </busines-card>
+    </div>
 <script>
 (function () {
 
     var init = {
         components: ['my_components/alex-dai-elements.html',
-                     'my_components/business-card/business-card.html'],
+                     'my_components/my-navbar/my-navbar.html',
+                     'my_components/business-card/business-card.html',
+                     ],
         goImport: function(callback) {
             for (var i  in this.components) {
                 var link = document.createElement('link');
@@ -152,5 +204,12 @@
     }());
 })();
 </script>
+
+<!--
+<script type="text/javascript" src="pub/js/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="pub/js/bootstrap/bootstrap-3.3.2.min.js"></script>
+
+<script type="text/javascript" src="pub/js/bootstrap-material-design/0.2.2/material.min.js"></script>
+-->
 </body>
 </html>
