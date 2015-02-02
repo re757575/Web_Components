@@ -23,11 +23,12 @@
 
     <!-- 自製名片樣板 -->
     <template id="business-card-template">
-
     <style>
+        /* 改成用js產生
         @import 'my_components/business-card/css/bootstrap/bootstrap-3.3.2.min.css';
         @import 'my_components/business-card/css/bootstrap-material-design/0.2.2/material-wfont.min.css';
         @import 'my_components/business-card/css/bootstrap-material-design/0.2.2/ripples.min.css';
+        */
         .panel-body:hover {
             background-color: #E1F5FE;
         }
@@ -68,6 +69,7 @@
         businessCardPrototype.createdCallback = function () {
 
             var _default = this.getAttribute('data-default');
+            var fileFrom = this.getAttribute('data-fileFrom');
 
             var name = this.getAttribute('data-name');
             var mobile = this.getAttribute('data-mobile');
@@ -99,6 +101,21 @@
 
             // 將 樣板 加到 ShadowRoot 底下
             shadow.appendChild(content);
+
+            /*
+                動態產生style import css(為了能使用在 googledrive host 裡的元件)
+                為什麼不用<link>?，因為 <link> tag 在 shadow tree 會被忽略
+             */
+            // 判斷是否使用googledrive裡的css
+            var filePath = window.location.href;
+            if (fileFrom !==  null && fileFrom === 'google') {
+                filePath = "https://c36323f99c1fe547c5df08a19da73d28851460bf.googledrive.com/host/0B-bPcQfPGypzSV9uNFNmSEF2VGM/Web_Components/";
+            }
+
+            var style = doc.createElement('style');
+            var cssfile = "@import '"+ filePath +"my_components/business-card/css/bootstrap/bootstrap-3.3.2.min.css';";
+            style.appendChild(document.createTextNode(cssfile));
+            shadow.appendChild(style);
         };
 
         document.registerElement('busines-card', {prototype: businessCardPrototype});
