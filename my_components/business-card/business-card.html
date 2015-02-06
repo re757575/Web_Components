@@ -112,8 +112,12 @@
                 filePath = "https://c36323f99c1fe547c5df08a19da73d28851460bf.googledrive.com/host/0B-bPcQfPGypzSV9uNFNmSEF2VGM/Web_Components/";
             }
 
+            // 檔案在dropbox,修正連結
+            if (window.location.origin === 'https://dl.dropboxusercontent.com') {
+                filePath = filePath.replace('index.html','')
+            }
             var style = doc.createElement('style');
-            var cssfile = "@import '"+ filePath +"my_components/business-card/css/bootstrap/bootstrap-3.3.2.min.css';";
+            var cssfile = "@import '"+ filePath +"my_components/business-card/pub/css/bootstrap/bootstrap-3.3.2.min.css';";
             style.appendChild(document.createTextNode(cssfile));
             shadow.appendChild(style);
         };
