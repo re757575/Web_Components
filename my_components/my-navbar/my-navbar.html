@@ -18,8 +18,8 @@
 <script type="text/javascript" src="../bower_components/webcomponentsjs/ShadowDOM.min.js"></script>
 -->
 
-<script src="js/jquery/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap/bootstrap-3.3.2.min.js"></script>
+<script src="pub/js/jquery/jquery-1.10.2.min.js"></script>
+<script src="pub/js/bootstrap/bootstrap-3.3.2.min.js"></script>
 
 </head>
 <body>
@@ -28,9 +28,9 @@
     <template id="my-navbar-template">
     
     <style>
-        @import 'my_components/my-navbar/css/bootstrap/bootstrap-3.3.2.min.css';
-        @import 'my_components/my-navbar/css/bootstrap-material-design/0.2.2/material-wfont.min.css';
-        @import 'my_components/my-navbar/css/bootstrap-material-design/0.2.2/ripples.min.css';
+        @import 'my_components/my-navbar/pub/css/bootstrap/bootstrap-3.3.2.min.css';
+        @import 'my_components/my-navbar/pub/css/bootstrap-material-design/0.2.2/material-wfont.min.css';
+        @import 'my_components/my-navbar/pub/css/bootstrap-material-design/0.2.2/ripples.min.css';
         .panel-body:hover {
             background-color: #E1F5FE;
         }
@@ -95,6 +95,41 @@
             var tpl = doc.getElementById('my-navbar-template');
             var myNavbarPrototype = Object.create(HTMLElement.prototype);
 
+            myNavbarPrototype.bindEvent = function () {
+                var toggleBtn = 'my-navbar::shadow .navbar-toggle';
+                var navbarDiv = 'my-navbar::shadow .navbar-collapse';
+                var dropdown = 'my-navbar::shadow .dropdown-toggle';
+                /*
+                    因為 shadow root, navbar 預設的 toggle event 無法正確地綁定
+                    只好透過js自行綁定
+                 */
+                var toggleStatus = 0;
+                $(toggleBtn).click(function(event) {
+                    if (toggleStatus === 0) $(navbarDiv).collapse('show');
+                    if (toggleStatus === 1) $(navbarDiv).collapse('hide');
+                });
+
+                $(navbarDiv).on('hidden.bs.collapse', function () {
+                    toggleStatus = 0;
+                });
+
+                $(navbarDiv).on('shown.bs.collapse', function () {
+                    toggleStatus = 1;
+                });
+
+                /* 一樣需自行綁定 */
+                $(dropdown).click(function(event) {
+                    event.preventDefault();
+                    var dropdown = $(this).parent('.dropdown');
+                    var dropdownStatus = dropdown.attr('class');
+
+                    if (dropdownStatus.indexOf('open') === -1) {
+                        dropdown.addClass('open');
+                    } else {
+                        dropdown.removeClass('open');
+                    }
+                });
+            };
 
             myNavbarPrototype.createdCallback = function () {
 
@@ -106,6 +141,7 @@
 
                 // 將 樣板 加到 ShadowRoot 底下
                 shadow.appendChild(content);
+                myNavbarPrototype.bindEvent();
             };
 
             document.registerElement('my-navbar', {prototype: myNavbarPrototype});
